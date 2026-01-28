@@ -1,222 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Valentine</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   background:#ffdce5;
-  height:100vh;
-  overflow:hidden;
 }
 
-/* BACKGROUND EMOJIS */
-#bgEmojis{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-}
+/* Floating hearts */
 .bg-emoji{
-  position:absolute;
-  opacity:.35;
+  position:fixed;
+  bottom:-10%;
   animation:floatUp linear infinite;
+  opacity:0.35;
+  pointer-events:none;
+  z-index:0;
 }
+
 @keyframes floatUp{
-  from{transform:translateY(110vh)}
-  to{transform:translateY(-15vh)}
+  from{transform:translateY(0)}
+  to{transform:translateY(-120vh)}
 }
 
-/* SCREENS */
-.screen{
-  position:relative;
-  text-align:center;
-  padding:20px;
-}
-.hidden{display:none}
-
-.centerScreen{
-  height:100vh;
+/* Sections */
+.section{
+  min-height:100vh;
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
+  text-align:center;
+  padding:30px;
+  position:relative;
+  z-index:1;
 }
 
-h1,h2{color:#b9375e}
+h1,h2{
+  color:#b9375e;
+  margin-bottom:20px;
+}
 
+img{
+  max-width:220px;
+  border-radius:16px;
+}
+
+.next{
+  margin-top:30px;
+  font-size:18px;
+  color:#ff4d6d;
+  text-decoration:none;
+}
+
+/* Buttons */
 button{
   padding:14px 30px;
-  font-size:16px;
   border:none;
   border-radius:30px;
+  font-size:16px;
   cursor:pointer;
 }
 
-#yesBtn{background:#ff4d6d;color:#fff}
-#noBtn{
-  background:#ffd6e0;
-  color:#ff4d6d;
-  position:absolute;
-}
-
-.giftOption{
+.yes{
   background:#ff4d6d;
-  color:#fff;
-  width:240px;
-  margin:15px auto;
+  color:white;
+  margin-top:20px;
 }
 
-.returnBtn{
-  margin-top:20px;
+.no{
   background:#ffd6e0;
   color:#ff4d6d;
+  margin-top:15px;
 }
 
-.letterBox{
+/* Letter box */
+.letter{
   max-width:600px;
-  background:#fff;
-  padding:20px;
+  background:white;
+  padding:25px;
   border-radius:20px;
   text-align:left;
   color:#b9375e;
+  line-height:1.6;
 }
 </style>
 </head>
 
 <body>
 
-<div id="bgEmojis"></div>
-
-<!-- SCREEN 1 -->
-<div class="screen centerScreen" id="screen1">
+<!-- SECTION 1 -->
+<section class="section" id="one">
   <h1>
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
-  <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
-       style="width:200px;margin-top:20px;border-radius:14px">
-</div>
 
-<!-- SCREEN 2 -->
-<div class="screen hidden centerScreen" id="screen2" style="position:relative;">
-  <h1>Will you be my Valentine?</h1>
-  <button id="yesBtn" style="margin-top:20px;">Yes</button>
+  <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif">
 
-  <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
-       style="width:180px;margin-top:15px;border-radius:12px">
+  <a class="next" href="#two">↓ Next</a>
+</section>
 
-  <button id="noBtn" style="left:60%;top:60%;">No</button>
-</div>
+<!-- SECTION 2 -->
+<section class="section" id="two">
+  <h1>Will you be my Valentine? 💖</h1>
 
-<!-- SCREEN 3 -->
-<div class="screen hidden centerScreen" id="screen3">
-  <h1>I promise you’ll like it 💖</h1>
-</div>
+  <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif">
+
+  <a href="#three">
+    <button class="yes">Yes</button>
+  </a>
+
+  <a class="next" href="#three">↓</a>
+</section>
+
+<!-- SECTION 3 -->
+<section class="section" id="three">
+  <h1>I promise you’ll like it 💕</h1>
+
+  <a class="next" href="#gifts">↓ See gifts</a>
+</section>
 
 <!-- GIFTS -->
-<div class="screen hidden centerScreen" id="screen6">
+<section class="section" id="gifts">
   <h1>Gifts for my princess 👑</h1>
-  <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
-  <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
-  <button class="giftOption" onclick="openGift('surprise')">🎁 A Surprise</button>
-</div>
+
+  <a class="next" href="#letter">💌 Letter</a><br><br>
+  <a class="next" href="#bouquet">💐 Bouquet</a><br><br>
+  <a class="next" href="#surprise">🎁 Surprise</a>
+</section>
 
 <!-- LETTER -->
-<div class="screen hidden" id="letter">
+<section class="section" id="letter">
   <h1>💌 A Letter</h1>
-  <div class="letterBox">
-    <p>I love you ❤️</p>
-    <p>Always choosing you,<br><b>Raj</b></p>
+
+  <div class="letter">
+    <p>
+      From the day we first met till today my love has just grown with time.
+      Even though we’ve been doing long distance, your love always feels close.
+    </p>
+    <p>
+      You’ve been with me through every phase, every high and low,
+      and you always made me stronger.
+    </p>
+    <p>
+      Distance never made me doubt us. It only showed me how sure I am about choosing you.
+    </p>
+    <p><strong>I love you ❤️</strong></p>
+    <p>Always choosing you,<br><strong>Raj</strong></p>
   </div>
-  <button class="returnBtn" onclick="back()">← Return</button>
-</div>
+
+  <a class="next" href="#bouquet">↓</a>
+</section>
 
 <!-- BOUQUET -->
-<div class="screen hidden centerScreen" id="bouquet">
+<section class="section" id="bouquet">
   <h1>💐 A Bouquet</h1>
-  <img src="bouquet.jpg" width="260">
-  <button class="returnBtn" onclick="back()">← Return</button>
-</div>
+
+  <img src="bouquet.jpg">
+
+  <a class="next" href="#surprise">↓</a>
+</section>
 
 <!-- SURPRISE -->
-<div class="screen hidden centerScreen" id="surprise">
+<section class="section" id="surprise">
   <h1>🎁 A Surprise</h1>
-  <img id="surpriseImg" src="surprise.jpg"
-       style="filter:blur(10px);width:260px;border-radius:20px">
-  <button onclick="document.getElementById('surpriseImg').style.filter='none'">
-    Reveal 💖
-  </button>
-  <button class="returnBtn" onclick="back()">← Return</button>
-</div>
+
+  <img src="surprise.jpg">
+
+  <a class="next" href="#final">↓</a>
+</section>
 
 <!-- FINAL -->
-<div class="screen hidden centerScreen" id="final">
+<section class="section" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
-  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
-</div>
+
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+</section>
 
 <script>
-/* FLOATING EMOJIS */
-const emojis=["❤️","💖","💕","💘","✨"];
-function spawnEmoji(){
+/* Floating hearts */
+const emojis = ["❤️","💖","💕","💘","✨"];
+for(let i=0;i<20;i++){
   const e=document.createElement("div");
   e.className="bg-emoji";
   e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=16+Math.random()*20+"px";
-  e.style.animationDuration=8+Math.random()*8+"s";
-  document.getElementById("bgEmojis").appendChild(e);
-  setTimeout(()=>e.remove(),16000);
-}
-for(let i=0;i<15;i++) spawnEmoji();
-setInterval(spawnEmoji,700);
-
-/* SCREEN CONTROL */
-function show(id){
-  document.querySelectorAll(".screen")
-    .forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
-
-show("screen1");
-
-/* AUTO ADVANCE */
-setTimeout(()=>show("screen2"),5000);
-
-/* YES BUTTON */
-document.getElementById("yesBtn").onclick=()=>{
-  show("screen3");
-  setTimeout(()=>show("screen6"),2000);
-};
-
-/* NO BUTTON MOVE */
-const noBtn=document.getElementById("noBtn");
-const box=document.getElementById("screen2");
-noBtn.onmouseenter=noBtn.onclick=()=>{
-  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
-  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
-};
-
-/* GIFTS FLOW */
-let opened={letter:false,bouquet:false,surprise:false};
-
-function openGift(id){
-  opened[id]=true;
-  show(id);
-}
-
-function back(){
-  if(opened.letter && opened.bouquet && opened.surprise){
-    show("final");
-  } else {
-    show("screen6");
-  }
+  e.style.fontSize=16+Math.random()*24+"px";
+  e.style.animationDuration=10+Math.random()*10+"s";
+  document.body.appendChild(e);
 }
 </script>
 
