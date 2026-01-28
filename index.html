@@ -25,9 +25,8 @@ body{
   position:absolute;
   opacity:.35;
   animation:floatUp linear infinite;
-  pointer-events:none;   /* 🔑 THIS FIXES IT */
+  pointer-events:none;
 }
-
 @keyframes floatUp{
   from{transform:translateY(110vh)}
   to{transform:translateY(-15vh)}
@@ -42,7 +41,10 @@ body{
 }
 .hidden{display:none}
 .fade{animation:fade .6s ease}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
 
 .centerScreen{
   height:100vh;
@@ -62,7 +64,7 @@ button{
   cursor:pointer;
 }
 
-#yesBtn,#okBtn{background:#ff4d6d;color:#fff}
+#yesBtn{background:#ff4d6d;color:#fff}
 #noBtn{
   background:#ffd6e0;
   color:#ff4d6d;
@@ -117,17 +119,8 @@ button{
     Please be honest 🤍
   </h1>
 
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXk3dTNseW52MXFscGN0ejBuZHQ2Zjd3NndrYzVpOXR5NTRsbHF1ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uUnPYB37kLHvFnH4bi/giphy.gif"
+  <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px;">
-
- <button
-  id="okBtn"
-  style="margin-top:25px;"
-  onclick="showScreen('screen2')"
->
-  Okay🔥🔥🔥
-</button>
-
 
   <div class="plane">✈️💌</div>
 </div>
@@ -138,7 +131,7 @@ button{
 
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
-  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl6dmh1ZjJsbHJmMTFrNG1vOWE5bjdrOWt6ZXBtdG1sOHdzcDIwMCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3oxHQfvDzo7VhSRy8M/giphy.gif"
+  <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
        style="width:180px;margin-top:15px;border-radius:12px;">
 
   <button id="noBtn" style="left:60%;top:60%;">No</button>
@@ -146,7 +139,7 @@ button{
 
 <!-- SCREEN 3 -->
 <div class="container hidden fade centerScreen" id="screen3">
-  <h1>I promise you’ll like it</h1>
+  <h1>I promise you’ll like it 💖</h1>
 </div>
 
 <!-- GIFTS -->
@@ -161,9 +154,9 @@ button{
 <div class="container hidden fade" id="screen7">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
-    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
-    <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.</p>
-    <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you.</p>
+    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me.</p>
+    <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger.</p>
+    <p>Distance never made me doubt us. If anything it showed me how sure I am about choosing you.</p>
     <p><strong>I love you ❤️</strong></p>
     <p>Always Choosing You,<br><strong>Raj</strong></p>
   </div>
@@ -209,53 +202,50 @@ function createEmoji(){
 for(let i=0;i<12;i++) createEmoji();
 setInterval(createEmoji,700);
 
-/* FLOW */
+/* SCREEN FLOW */
 let opened={letter:false,bouquet:false,surprise:false};
-window.showScreen = function(id){
+function showScreen(id){
   document.querySelectorAll(".container").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
-};
+}
 
 showScreen("screen1");
 
-/* DOM SAFE HANDLERS */
-window.addEventListener("DOMContentLoaded",()=>{
+/* AUTO MOVE AFTER 5 SECONDS */
+setTimeout(()=>showScreen("screen2"),5000);
 
-  document.getElementById("yesBtn").addEventListener("click",()=>{
-    showScreen("screen3");
-    setTimeout(()=>showScreen("screen6"),2000);
-  });
+/* EVENTS */
+document.getElementById("yesBtn").onclick=()=>{
+  showScreen("screen3");
+  setTimeout(()=>showScreen("screen6"),2000);
+};
 
-  const noBtn=document.getElementById("noBtn");
-  const box=document.getElementById("screen2");
-  const moveNo=()=>{
-    noBtn.style.left=Math.max(20,Math.random()*(box.clientWidth-120))+"px";
-    noBtn.style.top=Math.max(20,Math.random()*(box.clientHeight-80))+"px";
-  };
-  noBtn.addEventListener("mouseenter",moveNo);
-  noBtn.addEventListener("click",moveNo);
+const noBtn=document.getElementById("noBtn");
+const box=document.getElementById("screen2");
+function moveNo(){
+  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
+  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
+}
+noBtn.addEventListener("mouseenter",moveNo);
+noBtn.addEventListener("click",moveNo);
 
-  const opts=document.querySelectorAll(".giftOption");
-  opts[0].onclick=()=>{opened.letter=true;showScreen("screen7")};
-  opts[1].onclick=()=>{opened.bouquet=true;showScreen("screen8")};
-  opts[2].onclick=()=>{opened.surprise=true;showScreen("screen9")};
+const opts=document.querySelectorAll(".giftOption");
+opts[0].onclick=()=>{opened.letter=true;showScreen("screen7")};
+opts[1].onclick=()=>{opened.bouquet=true;showScreen("screen8")};
+opts[2].onclick=()=>{opened.surprise=true;showScreen("screen9")};
 
-  function checkEnd(){
-    opened.letter&&opened.bouquet&&opened.surprise
-      ? showScreen("screen5")
-      : showScreen("screen6");
-  }
+function checkEnd(){
+  opened.letter&&opened.bouquet&&opened.surprise
+    ? showScreen("screen5")
+    : showScreen("screen6");
+}
+document.getElementById("backFromLetter").onclick=checkEnd;
+document.getElementById("backFromBouquet").onclick=checkEnd;
+document.getElementById("backFromSurprise").onclick=checkEnd;
 
-  document.getElementById("backFromLetter").onclick=checkEnd;
-  document.getElementById("backFromBouquet").onclick=checkEnd;
-  document.getElementById("backFromSurprise").onclick=checkEnd;
-
-  document.getElementById("revealBtn").onclick=()=>{
-    const img=document.getElementById("surpriseImg");
-    img.style.filter="blur(0)";
-  };
-
-});
+document.getElementById("revealBtn").onclick=()=>{
+  document.getElementById("surpriseImg").style.filter="blur(0)";
+};
 </script>
 
 </body>
