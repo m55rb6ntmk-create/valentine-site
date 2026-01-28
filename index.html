@@ -60,8 +60,7 @@ button{
   cursor:pointer;
 }
 
-#yesBtn{background:#ff4d6d;color:#fff}
-#okBtn{background:#ff4d6d;color:#fff;margin-top:25px}
+#yesBtn,#okBtn{background:#ff4d6d;color:#fff}
 #noBtn{
   background:#ffd6e0;
   color:#ff4d6d;
@@ -119,7 +118,7 @@ button{
   <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXk3dTNseW52MXFscGN0ejBuZHQ2Zjd3NndrYzVpOXR5NTRsbHF1ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px;">
 
-  <button id="okBtn">Okay</button>
+  <button id="okBtn" style="margin-top:25px;">Okay</button>
 
   <div class="plane">✈️💌</div>
 </div>
@@ -153,7 +152,7 @@ button{
 <div class="container hidden fade" id="screen7">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
-    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
+    <p>From the day we first met till today my love has just grown with the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
     <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.</p>
     <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you. The small moments we share on call, the laughs we have together the gossips and the cries i remember it all and i love all those moments and I want to create more moments like these in future too.</p>
     <p><strong>I love you ❤️</strong></p>
@@ -221,8 +220,8 @@ document.getElementById("yesBtn").onclick=()=>{
 const noBtn=document.getElementById("noBtn");
 function moveNo(){
   const box=document.getElementById("screen2");
-  noBtn.style.left=Math.random()*(box.clientWidth-100)+"px";
-  noBtn.style.top=Math.random()*(box.clientHeight-50)+"px";
+ noBtn.style.left = Math.max(20, Math.random()*(box.clientWidth-120))+"px";
+noBtn.style.top  = Math.max(20, Math.random()*(box.clientHeight-80))+"px";
 }
 noBtn.addEventListener("mouseenter",moveNo);
 noBtn.addEventListener("click",moveNo);
@@ -243,12 +242,11 @@ document.getElementById("backFromBouquet").onclick=checkEnd;
 document.getElementById("backFromSurprise").onclick=checkEnd;
 
 /* REVEAL */
-window.addEventListener("load",()=>{
-  const r=document.getElementById("revealBtn");
-  const img=document.getElementById("surpriseImg");
-  r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none"};
-});
-  
+const r=document.getElementById("revealBtn");
+const img=document.getElementById("surpriseImg");
+if(r&&img){
+  r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none";}
+}
 </script>
 
 </body>
