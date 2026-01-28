@@ -248,6 +248,16 @@ window.addEventListener("load",()=>{
   const img=document.getElementById("surpriseImg");
   r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none"};
 });
+  /* OK BUTTON */
+window.addEventListener("DOMContentLoaded", () => {
+  const okBtn = document.getElementById("okBtn");
+  if (okBtn) {
+    okBtn.addEventListener("click", () => {
+      showScreen("screen2");
+    });
+  }
+});
+
 </script>
 
 </body>
