@@ -209,10 +209,11 @@ setInterval(createEmoji,700);
 
 /* FLOW */
 let opened={letter:false,bouquet:false,surprise:false};
-function showScreen(id){
+window.showScreen = function(id){
   document.querySelectorAll(".container").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
-}
+};
+
 showScreen("screen1");
 
 /* DOM SAFE HANDLERS */
