@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine</title>
 
 <style>
@@ -10,199 +10,188 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-html{
-  scroll-behavior:smooth;
+  font-family:Poppins,sans-serif;
 }
 
 body{
   background:#ffdce5;
+  height:100vh;
+  overflow:hidden;
 }
 
-/* Floating hearts */
-.bg-emoji{
-  position:fixed;
-  bottom:-10%;
-  animation:floatUp linear infinite;
-  opacity:0.35;
-  pointer-events:none;
-  z-index:0;
+/* SCREENS */
+.screen{
+  text-align:center;
+  padding:20px;
 }
+.hidden{display:none}
 
-@keyframes floatUp{
-  from{transform:translateY(0)}
-  to{transform:translateY(-120vh)}
-}
-
-/* Sections */
-.section{
-  min-height:100vh;
+.centerScreen{
+  height:100vh;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  text-align:center;
-  padding:30px;
-  position:relative;
-  z-index:1;
+  flex-direction:column;
 }
 
-h1,h2{
-  color:#b9375e;
-  margin-bottom:20px;
-}
+h1,h2{color:#b9375e}
 
-img{
-  max-width:220px;
-  border-radius:16px;
-}
-
-.next{
-  margin-top:30px;
-  font-size:18px;
-  color:#ff4d6d;
-  text-decoration:none;
-}
-
-/* Buttons */
 button{
   padding:14px 30px;
+  font-size:16px;
   border:none;
   border-radius:30px;
-  font-size:16px;
   cursor:pointer;
 }
 
-.yes{
+#yesBtn{
   background:#ff4d6d;
-  color:white;
-  margin-top:20px;
+  color:#fff;
 }
 
-.no{
+#noBtn{
   background:#ffd6e0;
   color:#ff4d6d;
-  margin-top:15px;
+  position:absolute;
 }
 
-/* Letter box */
-.letter{
+.giftOption{
+  background:#ff4d6d;
+  color:#fff;
+  width:240px;
+  margin:15px auto;
+}
+
+.returnBtn{
+  margin-top:20px;
+  background:#ffd6e0;
+  color:#ff4d6d;
+}
+
+.letterBox{
   max-width:600px;
-  background:white;
-  padding:25px;
+  background:#fff;
+  padding:20px;
   border-radius:20px;
   text-align:left;
   color:#b9375e;
-  line-height:1.6;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SECTION 1 -->
-<section class="section" id="one">
+<!-- SCREEN 1 -->
+<div class="screen centerScreen" id="screen1">
   <h1>
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
 
-  <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif">
+  <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
+       style="width:200px;margin-top:20px;border-radius:14px">
+</div>
 
-  <a class="next" href="#two">↓ Next</a>
-</section>
+<!-- SCREEN 2 -->
+<div class="screen hidden centerScreen" id="screen2" style="position:relative;">
+  <h1>Will you be my Valentine?</h1>
 
-<!-- SECTION 2 -->
-<section class="section" id="two">
-  <h1>Will you be my Valentine? 💖</h1>
+  <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
-  <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif">
+  <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
+       style="width:180px;margin-top:15px;border-radius:12px">
 
-  <a href="#three">
-    <button class="yes">Yes</button>
-  </a>
+  <button id="noBtn" style="left:60%;top:60%;">No</button>
+</div>
 
-  <a class="next" href="#three">↓</a>
-</section>
-
-<!-- SECTION 3 -->
-<section class="section" id="three">
-  <h1>I promise you’ll like it 💕</h1>
-
-  <a class="next" href="#gifts">↓ See gifts</a>
-</section>
+<!-- SCREEN 3 -->
+<div class="screen hidden centerScreen" id="screen3">
+  <h1>I promise you’ll like it 💖</h1>
+</div>
 
 <!-- GIFTS -->
-<section class="section" id="gifts">
+<div class="screen hidden centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
-
-  <a class="next" href="#letter">💌 Letter</a><br><br>
-  <a class="next" href="#bouquet">💐 Bouquet</a><br><br>
-  <a class="next" href="#surprise">🎁 Surprise</a>
-</section>
+  <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
+  <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
+  <button class="giftOption" onclick="openGift('surprise')">🎁 A Surprise</button>
+</div>
 
 <!-- LETTER -->
-<section class="section" id="letter">
+<div class="screen hidden" id="letter">
   <h1>💌 A Letter</h1>
-
-  <div class="letter">
-    <p>
-      From the day we first met till today my love has just grown with time.
-      Even though we’ve been doing long distance, your love always feels close.
-    </p>
-    <p>
-      You’ve been with me through every phase, every high and low,
-      and you always made me stronger.
-    </p>
-    <p>
-      Distance never made me doubt us. It only showed me how sure I am about choosing you.
-    </p>
-    <p><strong>I love you ❤️</strong></p>
-    <p>Always choosing you,<br><strong>Raj</strong></p>
+  <div class="letterBox">
+    <p>I love you ❤️</p>
+    <p>Always choosing you,<br><b>Raj</b></p>
   </div>
-
-  <a class="next" href="#bouquet">↓</a>
-</section>
+  <button class="returnBtn" onclick="back()">← Return</button>
+</div>
 
 <!-- BOUQUET -->
-<section class="section" id="bouquet">
+<div class="screen hidden centerScreen" id="bouquet">
   <h1>💐 A Bouquet</h1>
-
-  <img src="bouquet.jpg">
-
-  <a class="next" href="#surprise">↓</a>
-</section>
+  <img src="bouquet.jpg" width="260">
+  <button class="returnBtn" onclick="back()">← Return</button>
+</div>
 
 <!-- SURPRISE -->
-<section class="section" id="surprise">
+<div class="screen hidden centerScreen" id="surprise">
   <h1>🎁 A Surprise</h1>
-
-  <img src="surprise.jpg">
-
-  <a class="next" href="#final">↓</a>
-</section>
+  <img id="surpriseImg" src="surprise.jpg"
+       style="filter:blur(10px);width:260px;border-radius:20px">
+  <button onclick="document.getElementById('surpriseImg').style.filter='none'">
+    Reveal 💖
+  </button>
+  <button class="returnBtn" onclick="back()">← Return</button>
+</div>
 
 <!-- FINAL -->
-<section class="section" id="final">
+<div class="screen hidden centerScreen" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
-
-  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
-</section>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
+</div>
 
 <script>
-/* Floating hearts */
-const emojis = ["❤️","💖","💕","💘","✨"];
-for(let i=0;i<20;i++){
-  const e=document.createElement("div");
-  e.className="bg-emoji";
-  e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=16+Math.random()*24+"px";
-  e.style.animationDuration=10+Math.random()*10+"s";
-  document.body.appendChild(e);
+function show(id){
+  document.querySelectorAll(".screen")
+    .forEach(s=>s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+show("screen1");
+
+/* Auto move to screen 2 after 5 seconds */
+setTimeout(()=>show("screen2"),5000);
+
+/* YES button */
+document.getElementById("yesBtn").onclick=()=>{
+  show("screen3");
+  setTimeout(()=>show("screen6"),2000);
+};
+
+/* NO button movement */
+const noBtn=document.getElementById("noBtn");
+const box=document.getElementById("screen2");
+noBtn.onmouseenter=noBtn.onclick=()=>{
+  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
+  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
+};
+
+/* Gift flow */
+let opened={letter:false,bouquet:false,surprise:false};
+
+function openGift(id){
+  opened[id]=true;
+  show(id);
+}
+
+function back(){
+  if(opened.letter && opened.bouquet && opened.surprise){
+    show("final");
+  } else {
+    show("screen6");
+  }
 }
 </script>
 
