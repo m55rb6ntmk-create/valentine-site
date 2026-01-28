@@ -152,9 +152,9 @@ button{
 <div class="container hidden fade" id="screen7">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
-    <p>From the day we first met till today my love has just grown with the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
+    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
     <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.</p>
-    <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you. The small moments we share on call, the laughs we have together the gossips and the cries i remember it all and i love all those moments and I want to create more moments like these in future too.</p>
+    <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you.</p>
     <p><strong>I love you ❤️</strong></p>
     <p>Always Choosing You,<br><strong>Raj</strong></p>
   </div>
@@ -208,69 +208,48 @@ function showScreen(id){
 }
 showScreen("screen1");
 
-/* BUTTONS */
+/* DOM SAFE HANDLERS */
+window.addEventListener("DOMContentLoaded",()=>{
 
-
-document.getElementById("yesBtn").onclick=()=>{
-  showScreen("screen3");
-  setTimeout(()=>showScreen("screen6"),2000);
-};
-
-/* NO BUTTON MOVE */
-const noBtn=document.getElementById("noBtn");
-function moveNo(){
-  const box=document.getElementById("screen2");
- noBtn.style.left = Math.max(20, Math.random()*(box.clientWidth-120))+"px";
-noBtn.style.top  = Math.max(20, Math.random()*(box.clientHeight-80))+"px";
-}
-noBtn.addEventListener("mouseenter",moveNo);
-noBtn.addEventListener("click",moveNo);
-
-/* GIFTS */
-const opts=document.querySelectorAll(".giftOption");
-opts[0].onclick=()=>{opened.letter=true;showScreen("screen7")};
-opts[1].onclick=()=>{opened.bouquet=true;showScreen("screen8")};
-opts[2].onclick=()=>{opened.surprise=true;showScreen("screen9")};
-
-function checkEnd(){
-  opened.letter&&opened.bouquet&&opened.surprise
-    ? showScreen("screen5")
-    : showScreen("screen6");
-}
-document.getElementById("backFromLetter").onclick=checkEnd;
-document.getElementById("backFromBouquet").onclick=checkEnd;
-document.getElementById("backFromSurprise").onclick=checkEnd;
-
-/* REVEAL */
-const r=document.getElementById("revealBtn");
-const img=document.getElementById("surpriseImg");
-if(r&&img){
-  r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none";}
-}
-window.addEventListener("DOMContentLoaded", () => {
-
-  document.getElementById("okBtn")?.addEventListener("click", () => {
+  document.getElementById("okBtn").addEventListener("click",()=>{
     showScreen("screen2");
   });
 
-  document.getElementById("yesBtn")?.addEventListener("click", () => {
+  document.getElementById("yesBtn").addEventListener("click",()=>{
     showScreen("screen3");
-    setTimeout(() => showScreen("screen6"), 2000);
+    setTimeout(()=>showScreen("screen6"),2000);
   });
 
-  const noBtn = document.getElementById("noBtn");
-  if (noBtn) {
-    const box = document.getElementById("screen2");
-    const moveNo = () => {
-      noBtn.style.left = Math.max(20, Math.random()*(box.clientWidth-120))+"px";
-      noBtn.style.top  = Math.max(20, Math.random()*(box.clientHeight-80))+"px";
-    };
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("click", moveNo);
+  const noBtn=document.getElementById("noBtn");
+  const box=document.getElementById("screen2");
+  const moveNo=()=>{
+    noBtn.style.left=Math.max(20,Math.random()*(box.clientWidth-120))+"px";
+    noBtn.style.top=Math.max(20,Math.random()*(box.clientHeight-80))+"px";
+  };
+  noBtn.addEventListener("mouseenter",moveNo);
+  noBtn.addEventListener("click",moveNo);
+
+  const opts=document.querySelectorAll(".giftOption");
+  opts[0].onclick=()=>{opened.letter=true;showScreen("screen7")};
+  opts[1].onclick=()=>{opened.bouquet=true;showScreen("screen8")};
+  opts[2].onclick=()=>{opened.surprise=true;showScreen("screen9")};
+
+  function checkEnd(){
+    opened.letter&&opened.bouquet&&opened.surprise
+      ? showScreen("screen5")
+      : showScreen("screen6");
   }
 
-});
+  document.getElementById("backFromLetter").onclick=checkEnd;
+  document.getElementById("backFromBouquet").onclick=checkEnd;
+  document.getElementById("backFromSurprise").onclick=checkEnd;
 
+  document.getElementById("revealBtn").onclick=()=>{
+    const img=document.getElementById("surpriseImg");
+    img.style.filter="blur(0)";
+  };
+
+});
 </script>
 
 </body>
