@@ -118,7 +118,14 @@ button{
   <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXk3dTNseW52MXFscGN0ejBuZHQ2Zjd3NndrYzVpOXR5NTRsbHF1ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px;">
 
-  <button id="okBtn" style="margin-top:25px;">Okay</button>
+ <button
+  id="okBtn"
+  style="margin-top:25px;"
+  onclick="showScreen('screen2')"
+>
+  Okay
+</button>
+
 
   <div class="plane">✈️💌</div>
 </div>
@@ -210,10 +217,6 @@ showScreen("screen1");
 
 /* DOM SAFE HANDLERS */
 window.addEventListener("DOMContentLoaded",()=>{
-
-  document.getElementById("okBtn").addEventListener("click",()=>{
-    showScreen("screen2");
-  });
 
   document.getElementById("yesBtn").addEventListener("click",()=>{
     showScreen("screen3");
