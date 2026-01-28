@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #fff0f5;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+h1, h2 {
+  color: #ff4d6d;
+  margin-bottom: 20px;
+}
+
+.fade {
+  animation: fade 0.6s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#noBtn {
+  background: #ffd6e0;
+  color: #ff4d6d;
+  position: absolute;
+}
+
+img {
+  width: 200px;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container fade" id="screen1">
+  <h2>POV: Valentine’s is coming</h2>
+  <h2>And your gf’s waiting</h2>
+</div>
+
+<div class="container hidden fade" id="screen2">
+  <h1>Will you be my Valentine?</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+<div class="container hidden fade" id="screen3">
+  <h1>I promise you’ll like it</h1>
+</div>
+
+<div class="container hidden fade" id="screen4">
+  <h1>I made these just for you</h1>
+</div>
+
+<div class="container hidden fade" id="screen5">
+  <h1>YAYYYY 💖</h1>
+  <h2>Happy Valentine’s ❤️</h2>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="baby panda">
+</div>
+
+<script>
+let currentScreen = 1;
+const totalScreens = 5;
+
+setTimeout(() => showScreen(2), 2000);
+
+function showScreen(num) {
+  document.getElementById(`screen${currentScreen}`).classList.add("hidden");
+  document.getElementById(`screen${num}`).classList.remove("hidden");
+  currentScreen = num;
+}
+
+document.getElementById("yesBtn").onclick = () => {
+  showScreen(3);
+  setTimeout(() => showScreen(4), 2000);
+  setTimeout(() => showScreen(5), 4000);
+};
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function moveButton() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = `${x}px`;
+  noBtn.style.top = `${y}px`;
+}
+</script>
+
+</body>
+</html>
