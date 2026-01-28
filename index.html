@@ -14,12 +14,12 @@ body{
   overflow:hidden;
 }
 
-/* BACKGROUND EMOJIS — FIXED */
+/* BACKGROUND EMOJIS */
 #bgEmojis{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:-1; /* 🔴 THIS FIXES THE FREEZE */
+  z-index:-1;
 }
 .bg-emoji{
   position:absolute;
@@ -31,8 +31,8 @@ body{
   to{transform:translateY(-15vh)}
 }
 
-/* GENERAL */
-.container{
+/* SCREENS */
+.screen{
   position:relative;
   text-align:center;
   padding:20px;
@@ -64,7 +64,6 @@ button{
   position:absolute;
 }
 
-/* Gifts */
 .giftOption{
   background:#ff4d6d;
   color:#fff;
@@ -94,18 +93,17 @@ button{
 <div id="bgEmojis"></div>
 
 <!-- SCREEN 1 -->
-<div class="container centerScreen" id="screen1">
+<div class="screen centerScreen" id="screen1">
   <h1>
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
-
   <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px">
 </div>
 
 <!-- SCREEN 2 -->
-<div class="container hidden centerScreen" id="screen2" style="position:relative;">
+<div class="screen hidden centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
@@ -116,12 +114,12 @@ button{
 </div>
 
 <!-- SCREEN 3 -->
-<div class="container hidden centerScreen" id="screen3">
-  <h1>I promise you’ll like it</h1>
+<div class="screen hidden centerScreen" id="screen3">
+  <h1>I promise you’ll like it 💖</h1>
 </div>
 
 <!-- GIFTS -->
-<div class="container hidden centerScreen" id="screen6">
+<div class="screen hidden centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
   <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
   <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
@@ -129,7 +127,7 @@ button{
 </div>
 
 <!-- LETTER -->
-<div class="container hidden" id="letter">
+<div class="screen hidden" id="letter">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
     <p>I love you ❤️</p>
@@ -139,16 +137,17 @@ button{
 </div>
 
 <!-- BOUQUET -->
-<div class="container hidden centerScreen" id="bouquet">
+<div class="screen hidden centerScreen" id="bouquet">
   <h1>💐 A Bouquet</h1>
   <img src="bouquet.jpg" width="260">
   <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- SURPRISE -->
-<div class="container hidden centerScreen" id="surprise">
+<div class="screen hidden centerScreen" id="surprise">
   <h1>🎁 A Surprise</h1>
-  <img id="surpriseImg" src="surprise.jpg" style="filter:blur(10px);width:260px">
+  <img id="surpriseImg" src="surprise.jpg"
+       style="filter:blur(10px);width:260px;border-radius:20px">
   <button onclick="document.getElementById('surpriseImg').style.filter='none'">
     Reveal 💖
   </button>
@@ -156,7 +155,7 @@ button{
 </div>
 
 <!-- FINAL -->
-<div class="container hidden centerScreen" id="final">
+<div class="screen hidden centerScreen" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
@@ -178,17 +177,19 @@ function spawnEmoji(){
 for(let i=0;i<15;i++) spawnEmoji();
 setInterval(spawnEmoji,700);
 
-/* SCREEN FLOW */
+/* SCREEN CONTROL */
 function show(id){
-  document.querySelectorAll(".container").forEach(c=>c.classList.add("hidden"));
+  document.querySelectorAll(".screen")
+    .forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
+
 show("screen1");
 
 /* AUTO ADVANCE */
 setTimeout(()=>show("screen2"),5000);
 
-/* BUTTONS */
+/* YES BUTTON */
 document.getElementById("yesBtn").onclick=()=>{
   show("screen3");
   setTimeout(()=>show("screen6"),2000);
@@ -202,14 +203,16 @@ noBtn.onmouseenter=noBtn.onclick=()=>{
   noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
 };
 
-/* GIFTS */
+/* GIFTS FLOW */
 let opened={letter:false,bouquet:false,surprise:false};
+
 function openGift(id){
   opened[id]=true;
   show(id);
 }
+
 function back(){
-  if(opened.letter&&opened.bouquet&&opened.surprise){
+  if(opened.letter && opened.bouquet && opened.surprise){
     show("final");
   } else {
     show("screen6");
