@@ -209,7 +209,7 @@ function showScreen(id){
 showScreen("screen1");
 
 /* BUTTONS */
-document.getElementById("okBtn").onclick=()=>showScreen("screen2");
+
 
 document.getElementById("yesBtn").onclick=()=>{
   showScreen("screen3");
@@ -247,6 +247,30 @@ const img=document.getElementById("surpriseImg");
 if(r&&img){
   r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none";}
 }
+window.addEventListener("DOMContentLoaded", () => {
+
+  document.getElementById("okBtn")?.addEventListener("click", () => {
+    showScreen("screen2");
+  });
+
+  document.getElementById("yesBtn")?.addEventListener("click", () => {
+    showScreen("screen3");
+    setTimeout(() => showScreen("screen6"), 2000);
+  });
+
+  const noBtn = document.getElementById("noBtn");
+  if (noBtn) {
+    const box = document.getElementById("screen2");
+    const moveNo = () => {
+      noBtn.style.left = Math.max(20, Math.random()*(box.clientWidth-120))+"px";
+      noBtn.style.top  = Math.max(20, Math.random()*(box.clientHeight-80))+"px";
+    };
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("click", moveNo);
+  }
+
+});
+
 </script>
 
 </body>
