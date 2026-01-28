@@ -42,6 +42,14 @@ body{
 .fade{animation:fade .6s ease}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
+.centerScreen{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
 h1,h2,h3{color:#b9375e}
 
 button{
@@ -58,9 +66,6 @@ button{
   color:#ff4d6d;
   position:absolute;
 }
-
-.softText{font-size:22px}
-.mainText{font-size:36px;max-width:320px;margin:auto}
 
 /* Decorations */
 .hearts{position:absolute;top:20px;left:20px}
@@ -102,28 +107,44 @@ button{
 <div id="bgEmojis"></div>
 
 <!-- SCREEN 1 -->
-<div class="container fade" id="screen1" style="position:relative;">
+<div class="container fade centerScreen" id="screen1" style="position:relative;">
   <div class="hearts"><span>💗</span><span>💖</span><span>💕</span></div>
-  <div class="sticker">💘</div>
-  <h3 class="softText">Hey there,</h3>
-  <h1 class="mainText">Will you be my Valentine?</h1>
+  <div class="sticker">💌✨</div>
+
+  <h1 style="font-size:28px;max-width:330px;line-height:1.3;">
+    Hey there, I have to ask you something.<br>
+    Please be honest 🤍
+  </h1>
+
+  <img
+    src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXk3dTNseW52MXFscGN0ejBuZHQ2Zjd3NndrYzVpOXR5NTRsbHF1ciZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uUnPYB37kLHvFnH4bi/giphy.gif"
+    style="width:200px;margin-top:20px;border-radius:14px;"
+  >
+
   <div class="plane">✈️💌</div>
 </div>
 
 <!-- SCREEN 2 -->
-<div class="container hidden fade" id="screen2" style="position:relative;">
-  <h1>Will you be my Valentine?</h1><br>
-  <button id="yesBtn">Yes</button>
+<div class="container hidden fade centerScreen" id="screen2" style="position:relative;">
+  <h1>Will you be my Valentine?</h1>
+
+  <button id="yesBtn" style="margin-top:20px;">Yes</button>
+
+  <img
+    src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl6dmh1ZjJsbHJmMTFrNG1vOWE5bjdrOWt6ZXBtdG1sOHdzcDIwMCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3oxHQfvDzo7VhSRy8M/giphy.gif"
+    style="width:180px;margin-top:15px;border-radius:12px;"
+  >
+
   <button id="noBtn" style="left:60%;top:60%;">No</button>
 </div>
 
 <!-- SCREEN 3 -->
-<div class="container hidden fade" id="screen3">
+<div class="container hidden fade centerScreen" id="screen3">
   <h1>I promise you’ll like it</h1>
 </div>
 
 <!-- GIFTS -->
-<div class="container hidden fade" id="screen6">
+<div class="container hidden fade centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
   <button class="giftOption">💌 A Letter</button>
   <button class="giftOption">💐 A Bouquet</button>
@@ -135,34 +156,36 @@ button{
   <h1>💌 A Letter</h1>
   <div class="letterBox">
     <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
+
     <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.</p>
+
     <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you. The small moments we share on call, the laughs we have together the gossips and the cries i remember it all and i love all those moments and I want to create more moments like these in future too.</p>
+
     <p><strong>I love you ❤️</strong></p>
+
     <p>Always Choosing You,<br><strong>Raj</strong></p>
   </div>
   <button class="returnBtn" id="backFromLetter">← Return</button>
 </div>
 
 <!-- BOUQUET -->
-<div class="container hidden fade" id="screen8">
+<div class="container hidden fade centerScreen" id="screen8">
   <h1>💐 A Bouquet</h1>
-  <img src="bouquet.jpg" style="width:260px;border-radius:20px">
+  <img src="bouquet.jpg" style="width:260px;border-radius:20px;margin-top:20px">
   <button class="returnBtn" id="backFromBouquet">← Return</button>
 </div>
 
 <!-- SURPRISE -->
-<div class="container hidden fade" id="screen9">
+<div class="container hidden fade centerScreen" id="screen9">
   <h1>🎁 A Surprise Gift</h1>
   <img id="surpriseImg" src="surprise.jpg"
-       style="width:260px;border-radius:20px;filter:blur(12px);transition:.6s">
-  <br>
-  <button id="revealBtn">Reveal gift 💖</button>
-  <br>
+       style="width:260px;border-radius:20px;margin-top:20px;filter:blur(12px);transition:.6s">
+  <button id="revealBtn" style="margin-top:15px;">Reveal gift 💖</button>
   <button class="returnBtn" id="backFromSurprise">← Return</button>
 </div>
 
 <!-- FINAL -->
-<div class="container hidden fade" id="screen5">
+<div class="container hidden fade centerScreen" id="screen5">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
@@ -171,7 +194,7 @@ button{
 <script>
 /* BACKGROUND EMOJIS */
 const emojiSet=["❤️","💖","💕","💘","✨"];
-setInterval(()=>{
+function createEmoji(){
   const e=document.createElement("div");
   e.className="bg-emoji";
   e.textContent=emojiSet[Math.floor(Math.random()*emojiSet.length)];
@@ -180,9 +203,11 @@ setInterval(()=>{
   e.style.animationDuration=8+Math.random()*8+"s";
   document.getElementById("bgEmojis").appendChild(e);
   setTimeout(()=>e.remove(),16000);
-},700);
+}
+for(let i=0;i<12;i++) createEmoji();
+setInterval(createEmoji,700);
 
-/* SCREEN FLOW */
+/* FLOW */
 let opened={letter:false,bouquet:false,surprise:false};
 function showScreen(id){
   document.querySelectorAll(".container").forEach(s=>s.classList.add("hidden"));
@@ -224,7 +249,9 @@ document.getElementById("backFromSurprise").onclick=checkEnd;
 window.addEventListener("load",()=>{
   const r=document.getElementById("revealBtn");
   const img=document.getElementById("surpriseImg");
-  r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none"};
+  if(r&&img){
+    r.onclick=()=>{img.style.filter="blur(0)";r.style.display="none";}
+  }
 });
 </script>
 
