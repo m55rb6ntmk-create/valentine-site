@@ -19,7 +19,6 @@ body{
   overflow:hidden;
 }
 
-/* SCREENS */
 .screen{
   text-align:center;
   padding:20px;
@@ -87,7 +86,6 @@ button{
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
-
   <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px">
 </div>
@@ -95,7 +93,6 @@ button{
 <!-- SCREEN 2 -->
 <div class="screen hidden centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
-
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
   <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
@@ -153,46 +150,53 @@ button{
 </div>
 
 <script>
-function show(id){
-  document.querySelectorAll(".screen")
-    .forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
+window.addEventListener("DOMContentLoaded", () => {
 
-show("screen1");
-
-/* Auto move to screen 2 after 5 seconds */
-setTimeout(()=>show("screen2"),5000);
-
-/* YES button */
-document.getElementById("yesBtn").onclick=()=>{
-  show("screen3");
-  setTimeout(()=>show("screen6"),2000);
-};
-
-/* NO button movement */
-const noBtn=document.getElementById("noBtn");
-const box=document.getElementById("screen2");
-noBtn.onmouseenter=noBtn.onclick=()=>{
-  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
-  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
-};
-
-/* Gift flow */
-let opened={letter:false,bouquet:false,surprise:false};
-
-function openGift(id){
-  opened[id]=true;
-  show(id);
-}
-
-function back(){
-  if(opened.letter && opened.bouquet && opened.surprise){
-    show("final");
-  } else {
-    show("screen6");
+  function show(id){
+    document.querySelectorAll(".screen")
+      .forEach(s => s.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
   }
-}
+
+  // Initial screen
+  show("screen1");
+
+  // Auto advance after 5 seconds
+  setTimeout(() => {
+    show("screen2");
+  }, 5000);
+
+  // YES button
+  document.getElementById("yesBtn").onclick = () => {
+    show("screen3");
+    setTimeout(() => show("screen6"), 2000);
+  };
+
+  // NO button movement
+  const noBtn = document.getElementById("noBtn");
+  const box = document.getElementById("screen2");
+  noBtn.onmouseenter = noBtn.onclick = () => {
+    noBtn.style.left = Math.random()*(box.clientWidth-120)+"px";
+    noBtn.style.top  = Math.random()*(box.clientHeight-80)+"px";
+  };
+
+  // Gift flow
+  window.opened = {letter:false,bouquet:false,surprise:false};
+
+  window.openGift = function(id){
+    opened[id] = true;
+    show(id);
+  };
+
+  window.back = function(){
+    if(opened.letter && opened.bouquet && opened.surprise){
+      show("final");
+    } else {
+      show("screen6");
+    }
+  };
+
+});
 </script>
 
 </body>
