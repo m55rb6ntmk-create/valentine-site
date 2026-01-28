@@ -25,7 +25,9 @@ body{
   position:absolute;
   opacity:.35;
   animation:floatUp linear infinite;
+  pointer-events:none;   /* 🔑 THIS FIXES IT */
 }
+
 @keyframes floatUp{
   from{transform:translateY(110vh)}
   to{transform:translateY(-15vh)}
