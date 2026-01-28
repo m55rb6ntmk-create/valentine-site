@@ -14,18 +14,17 @@ body{
   overflow:hidden;
 }
 
-/* BACKGROUND EMOJIS */
+/* BACKGROUND EMOJIS — FIXED */
 #bgEmojis{
   position:fixed;
   inset:0;
   pointer-events:none;
-  z-index:0;
+  z-index:-1; /* 🔴 THIS FIXES THE FREEZE */
 }
 .bg-emoji{
   position:absolute;
   opacity:.35;
   animation:floatUp linear infinite;
-  pointer-events:none;
 }
 @keyframes floatUp{
   from{transform:translateY(110vh)}
@@ -35,16 +34,10 @@ body{
 /* GENERAL */
 .container{
   position:relative;
-  z-index:2;
   text-align:center;
   padding:20px;
 }
 .hidden{display:none}
-.fade{animation:fade .6s ease}
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
-}
 
 .centerScreen{
   height:100vh;
@@ -71,36 +64,27 @@ button{
   position:absolute;
 }
 
-/* Decorations */
-.hearts{position:absolute;top:20px;left:20px}
-.hearts span{display:block;font-size:28px;margin-bottom:10px}
-.sticker{position:absolute;top:20px;right:20px;font-size:36px}
-.plane{position:absolute;bottom:30px;left:30px;font-size:32px}
-
 /* Gifts */
 .giftOption{
   background:#ff4d6d;
   color:#fff;
   width:240px;
   margin:15px auto;
-  display:block;
-}
-
-.letterBox{
-  max-width:600px;
-  margin:20px auto;
-  background:#fff;
-  padding:20px;
-  border-radius:20px;
-  color:#b9375e;
-  text-align:left;
-  line-height:1.6;
 }
 
 .returnBtn{
   margin-top:20px;
   background:#ffd6e0;
   color:#ff4d6d;
+}
+
+.letterBox{
+  max-width:600px;
+  background:#fff;
+  padding:20px;
+  border-radius:20px;
+  text-align:left;
+  color:#b9375e;
 }
 </style>
 </head>
@@ -110,142 +94,127 @@ button{
 <div id="bgEmojis"></div>
 
 <!-- SCREEN 1 -->
-<div class="container fade centerScreen" id="screen1" style="position:relative;">
-  <div class="hearts"><span>💗</span><span>💖</span><span>💕</span></div>
-  <div class="sticker">💌✨</div>
-
-  <h1 style="font-size:28px;max-width:330px;line-height:1.3;">
+<div class="container centerScreen" id="screen1">
+  <h1>
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
 
   <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
-       style="width:200px;margin-top:20px;border-radius:14px;">
-
-  <div class="plane">✈️💌</div>
+       style="width:200px;margin-top:20px;border-radius:14px">
 </div>
 
 <!-- SCREEN 2 -->
-<div class="container hidden fade centerScreen" id="screen2" style="position:relative;">
+<div class="container hidden centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
-
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
   <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
-       style="width:180px;margin-top:15px;border-radius:12px;">
+       style="width:180px;margin-top:15px;border-radius:12px">
 
   <button id="noBtn" style="left:60%;top:60%;">No</button>
 </div>
 
 <!-- SCREEN 3 -->
-<div class="container hidden fade centerScreen" id="screen3">
-  <h1>I promise you’ll like it 💖</h1>
+<div class="container hidden centerScreen" id="screen3">
+  <h1>I promise you’ll like it</h1>
 </div>
 
 <!-- GIFTS -->
-<div class="container hidden fade centerScreen" id="screen6">
+<div class="container hidden centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
-  <button class="giftOption">💌 A Letter</button>
-  <button class="giftOption">💐 A Bouquet</button>
-  <button class="giftOption">🎁 A Surprise Gift</button>
+  <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
+  <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
+  <button class="giftOption" onclick="openGift('surprise')">🎁 A Surprise</button>
 </div>
 
 <!-- LETTER -->
-<div class="container hidden fade" id="screen7">
+<div class="container hidden" id="letter">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
-    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me.</p>
-    <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger.</p>
-    <p>Distance never made me doubt us. If anything it showed me how sure I am about choosing you.</p>
-    <p><strong>I love you ❤️</strong></p>
-    <p>Always Choosing You,<br><strong>Raj</strong></p>
+    <p>I love you ❤️</p>
+    <p>Always choosing you,<br><b>Raj</b></p>
   </div>
-  <button class="returnBtn" id="backFromLetter">← Return</button>
+  <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- BOUQUET -->
-<div class="container hidden fade centerScreen" id="screen8">
+<div class="container hidden centerScreen" id="bouquet">
   <h1>💐 A Bouquet</h1>
-  <img src="bouquet.jpg" style="width:260px;border-radius:20px;margin-top:20px">
-  <button class="returnBtn" id="backFromBouquet">← Return</button>
+  <img src="bouquet.jpg" width="260">
+  <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- SURPRISE -->
-<div class="container hidden fade centerScreen" id="screen9">
-  <h1>🎁 A Surprise Gift</h1>
-  <img id="surpriseImg" src="surprise.jpg"
-       style="width:260px;border-radius:20px;margin-top:20px;filter:blur(12px);transition:.6s">
-  <button id="revealBtn" style="margin-top:15px;">Reveal gift 💖</button>
-  <button class="returnBtn" id="backFromSurprise">← Return</button>
+<div class="container hidden centerScreen" id="surprise">
+  <h1>🎁 A Surprise</h1>
+  <img id="surpriseImg" src="surprise.jpg" style="filter:blur(10px);width:260px">
+  <button onclick="document.getElementById('surpriseImg').style.filter='none'">
+    Reveal 💖
+  </button>
+  <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- FINAL -->
-<div class="container hidden fade centerScreen" id="screen5">
+<div class="container hidden centerScreen" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
 </div>
 
 <script>
-/* BACKGROUND EMOJIS */
-const emojiSet=["❤️","💖","💕","💘","✨"];
-function createEmoji(){
+/* FLOATING EMOJIS */
+const emojis=["❤️","💖","💕","💘","✨"];
+function spawnEmoji(){
   const e=document.createElement("div");
   e.className="bg-emoji";
-  e.textContent=emojiSet[Math.floor(Math.random()*emojiSet.length)];
+  e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"vw";
   e.style.fontSize=16+Math.random()*20+"px";
   e.style.animationDuration=8+Math.random()*8+"s";
   document.getElementById("bgEmojis").appendChild(e);
   setTimeout(()=>e.remove(),16000);
 }
-for(let i=0;i<12;i++) createEmoji();
-setInterval(createEmoji,700);
+for(let i=0;i<15;i++) spawnEmoji();
+setInterval(spawnEmoji,700);
 
 /* SCREEN FLOW */
-let opened={letter:false,bouquet:false,surprise:false};
-function showScreen(id){
-  document.querySelectorAll(".container").forEach(s=>s.classList.add("hidden"));
+function show(id){
+  document.querySelectorAll(".container").forEach(c=>c.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
+show("screen1");
 
-showScreen("screen1");
+/* AUTO ADVANCE */
+setTimeout(()=>show("screen2"),5000);
 
-/* AUTO MOVE AFTER 5 SECONDS */
-setTimeout(()=>showScreen("screen2"),5000);
-
-/* EVENTS */
+/* BUTTONS */
 document.getElementById("yesBtn").onclick=()=>{
-  showScreen("screen3");
-  setTimeout(()=>showScreen("screen6"),2000);
+  show("screen3");
+  setTimeout(()=>show("screen6"),2000);
 };
 
+/* NO BUTTON MOVE */
 const noBtn=document.getElementById("noBtn");
 const box=document.getElementById("screen2");
-function moveNo(){
+noBtn.onmouseenter=noBtn.onclick=()=>{
   noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
   noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
-}
-noBtn.addEventListener("mouseenter",moveNo);
-noBtn.addEventListener("click",moveNo);
-
-const opts=document.querySelectorAll(".giftOption");
-opts[0].onclick=()=>{opened.letter=true;showScreen("screen7")};
-opts[1].onclick=()=>{opened.bouquet=true;showScreen("screen8")};
-opts[2].onclick=()=>{opened.surprise=true;showScreen("screen9")};
-
-function checkEnd(){
-  opened.letter&&opened.bouquet&&opened.surprise
-    ? showScreen("screen5")
-    : showScreen("screen6");
-}
-document.getElementById("backFromLetter").onclick=checkEnd;
-document.getElementById("backFromBouquet").onclick=checkEnd;
-document.getElementById("backFromSurprise").onclick=checkEnd;
-
-document.getElementById("revealBtn").onclick=()=>{
-  document.getElementById("surpriseImg").style.filter="blur(0)";
 };
+
+/* GIFTS */
+let opened={letter:false,bouquet:false,surprise:false};
+function openGift(id){
+  opened[id]=true;
+  show(id);
+}
+function back(){
+  if(opened.letter&&opened.bouquet&&opened.surprise){
+    show("final");
+  } else {
+    show("screen6");
+  }
+}
 </script>
 
 </body>
