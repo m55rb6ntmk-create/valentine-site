@@ -14,7 +14,7 @@
 }
 
 body {
-  background: #fff0f5;
+  background: #ffdce5;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -32,11 +32,6 @@ body {
   display: none;
 }
 
-h1, h2 {
-  color: #ff4d6d;
-  margin-bottom: 20px;
-}
-
 .fade {
   animation: fade 0.6s ease;
 }
@@ -46,17 +41,16 @@ h1, h2 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.buttons {
-  margin-top: 30px;
+h1, h2, h3 {
+  color: #b9375e;
 }
 
 button {
-  padding: 15px 30px;
-  font-size: 18px;
+  padding: 14px 30px;
+  font-size: 16px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin: 10px;
 }
 
 #yesBtn {
@@ -70,71 +64,192 @@ button {
   position: absolute;
 }
 
-img {
-  width: 200px;
-  margin-top: 20px;
+.softText {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.mainText {
+  font-size: 36px;
+  max-width: 320px;
+  margin: auto;
+}
+
+.hearts {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.hearts span {
+  display: block;
+  font-size: 28px;
+  margin-bottom: 10px;
+  animation: float 2.5s ease-in-out infinite;
+}
+.hearts span:nth-child(2){animation-delay:.3s}
+.hearts span:nth-child(3){animation-delay:.6s}
+
+@keyframes float {
+  0% {transform:translateY(0)}
+  50% {transform:translateY(-8px)}
+  100% {transform:translateY(0)}
+}
+
+.sticker {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 36px;
+}
+
+.plane {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  font-size: 32px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 320px;
+  margin: auto;
+}
+
+.giftCard {
+  background: linear-gradient(145deg,#ffb6c9,#ff8fab);
+  height: 120px;
+  border-radius: 20px;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.giftOption {
+  background: #ff4d6d;
+  color: white;
+  width: 240px;
+  display: block;
+  margin: 15px auto;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container fade" id="screen1">
-  <h2>POV: Valentine’s is coming</h2>
-  <h2>And your gf’s waiting</h2>
+<!-- SCREEN 1 -->
+<div class="container fade" id="screen1" style="position:relative;">
+  <div class="hearts"><span>💗</span><span>💖</span><span>💕</span></div>
+  <div class="sticker">📅💘</div>
+  <h3 class="softText">Hey there,</h3>
+  <h1 class="mainText">Will you be my Valentine?</h1>
+  <div class="plane">✈️💌</div>
 </div>
 
+<!-- SCREEN 2 -->
 <div class="container hidden fade" id="screen2">
   <h1>Will you be my Valentine?</h1>
-  <div class="buttons">
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
-  </div>
+  <br>
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
 </div>
 
+<!-- SCREEN 3 -->
 <div class="container hidden fade" id="screen3">
   <h1>I promise you’ll like it</h1>
 </div>
 
+<!-- SCREEN 4 -->
 <div class="container hidden fade" id="screen4">
   <h1>I made these just for you</h1>
+  <p>Tap a card to open your surprise ✨</p>
+  <div class="cardGrid">
+    <div class="giftCard">📷💖</div>
+    <div class="giftCard">💌</div>
+    <div class="giftCard">🎀</div>
+    <div class="giftCard">💐</div>
+  </div>
 </div>
 
+<!-- SCREEN 6 -->
+<div class="container hidden fade" id="screen6">
+  <h1>Gifts for my princess 👑</h1>
+  <button class="giftOption">💌 A Letter</button>
+  <button class="giftOption">💐 A Bouquet</button>
+  <button class="giftOption">🎁 A Surprise Gift</button>
+</div>
+
+<!-- LETTER -->
+<div class="container hidden fade" id="screen7">
+  <h1>💌 A Letter</h1>
+  <div style="background:#fff;padding:20px;border-radius:20px;text-align:left;color:#b9375e;">
+    <p>From the day we first met till today my love has just grew by the time...</p>
+    <p>Distance never made me doubt us...</p>
+    <p><strong>I love you ❤️</strong></p>
+    <p>Always Choosing You,<br><strong>Raj</strong></p>
+  </div>
+  <button id="backFromLetter">← Return</button>
+</div>
+
+<!-- BOUQUET -->
+<div class="container hidden fade" id="screen8">
+  <h1>💐 A Bouquet</h1>
+  <img src="bouquet.jpg" style="width:260px;border-radius:20px;">
+  <button id="backFromBouquet">← Return</button>
+</div>
+
+<!-- SURPRISE -->
+<div class="container hidden fade" id="screen9">
+  <h1>🎁 A Surprise Gift</h1>
+  <img id="surpriseImg" src="surprise.jpg" style="width:260px;border-radius:20px;filter:blur(12px);transition:.6s;">
+  <button id="revealBtn">Reveal gift 💖</button>
+  <button id="backFromSurprise">← Return</button>
+</div>
+
+<!-- FINAL -->
 <div class="container hidden fade" id="screen5">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
-  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="baby panda">
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
 </div>
 
 <script>
-let currentScreen = 1;
-const totalScreens = 5;
+let openedGifts={letter:false,bouquet:false,surprise:false};
 
-setTimeout(() => showScreen(2), 2000);
-
-function showScreen(num) {
-  document.getElementById(`screen${currentScreen}`).classList.add("hidden");
-  document.getElementById(`screen${num}`).classList.remove("hidden");
-  currentScreen = num;
+function showScreen(id){
+  document.querySelectorAll(".container").forEach(s=>s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
 }
 
-document.getElementById("yesBtn").onclick = () => {
-  showScreen(3);
-  setTimeout(() => showScreen(4), 2000);
-  setTimeout(() => showScreen(5), 4000);
+setTimeout(()=>showScreen("screen2"),2000);
+
+document.getElementById("yesBtn").onclick=()=>{
+  showScreen("screen3");
+  setTimeout(()=>showScreen("screen4"),2000);
 };
 
-const noBtn = document.getElementById("noBtn");
+document.querySelectorAll(".giftCard").forEach(c=>c.onclick=()=>showScreen("screen6"));
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("click", moveButton);
+document.querySelectorAll(".giftOption")[0].onclick=()=>{openedGifts.letter=true;showScreen("screen7")};
+document.querySelectorAll(".giftOption")[1].onclick=()=>{openedGifts.bouquet=true;showScreen("screen8")};
+document.querySelectorAll(".giftOption")[2].onclick=()=>{openedGifts.surprise=true;showScreen("screen9")};
 
-function moveButton() {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 50);
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
+function checkEnd(){
+  if(openedGifts.letter && openedGifts.bouquet && openedGifts.surprise){
+    showScreen("screen5");
+  } else showScreen("screen6");
 }
+
+document.getElementById("backFromLetter").onclick=checkEnd;
+document.getElementById("backFromBouquet").onclick=checkEnd;
+document.getElementById("backFromSurprise").onclick=checkEnd;
+
+document.getElementById("revealBtn").onclick=()=>{
+  document.getElementById("surpriseImg").style.filter="blur(0)";
+};
 </script>
 
 </body>
