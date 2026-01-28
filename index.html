@@ -151,34 +151,67 @@ button{
 
 <script>
 window.addEventListener("DOMContentLoaded", () => {
+  console.log("valentine-site: script loaded (DOMContentLoaded)");
 
   function show(id){
     document.querySelectorAll(".screen")
       .forEach(s => s.classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
+    const el = document.getElementById(id);
+    if (!el) {
+      console.warn("show(): element not found:", id);
+      return;
+    }
+    el.classList.remove("hidden");
   }
 
   // Initial screen
   show("screen1");
 
+  // Allow clicking the first screen to proceed immediately (helpful if timer seems to stall)
+  const screen1 = document.getElementById("screen1");
+  if (screen1) {
+    screen1.addEventListener("click", () => {
+      console.log("screen1 clicked -> advancing to screen2");
+      show("screen2");
+    });
+  } else {
+    console.warn("screen1 element not found");
+  }
+
   // Auto advance after 5 seconds
   setTimeout(() => {
+    console.log("5s timeout -> advancing to screen2");
     show("screen2");
   }, 5000);
 
   // YES button
-  document.getElementById("yesBtn").onclick = () => {
-    show("screen3");
-    setTimeout(() => show("screen6"), 2000);
-  };
+  const yesBtn = document.getElementById("yesBtn");
+  if (yesBtn) {
+    yesBtn.onclick = () => {
+      console.log("yesBtn clicked -> screen3 then gifts");
+      show("screen3");
+      setTimeout(() => show("screen6"), 2000);
+    };
+  } else {
+    console.warn("yesBtn element not found");
+  }
 
-  // NO button movement
+  // NO button movement (guarded)
   const noBtn = document.getElementById("noBtn");
   const box = document.getElementById("screen2");
-  noBtn.onmouseenter = noBtn.onclick = () => {
-    noBtn.style.left = Math.random()*(box.clientWidth-120)+"px";
-    noBtn.style.top  = Math.random()*(box.clientHeight-80)+"px";
-  };
+  if (noBtn && box) {
+    noBtn.onmouseenter = noBtn.onclick = () => {
+      try {
+        noBtn.style.left = Math.random()*(box.clientWidth-120)+"px";
+        noBtn.style.top  = Math.random()*(box.clientHeight-80)+"px";
+      } catch (e) {
+        console.error("error moving noBtn:", e);
+      }
+    };
+  } else {
+    if (!noBtn) console.warn("noBtn not found");
+    if (!box) console.warn("screen2 (box) not found");
+  }
 
   // Gift flow
   window.opened = {letter:false,bouquet:false,surprise:false};
