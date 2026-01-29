@@ -19,11 +19,12 @@ body{
   overflow:hidden;
 }
 
+/* SCREENS */
 .screen{
+  display:none;
   text-align:center;
   padding:20px;
 }
-.hidden{display:none}
 
 .centerScreen{
   height:100vh;
@@ -91,7 +92,7 @@ button{
 </div>
 
 <!-- SCREEN 2 -->
-<div class="screen hidden centerScreen" id="screen2" style="position:relative;">
+<div class="screen centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
@@ -102,12 +103,12 @@ button{
 </div>
 
 <!-- SCREEN 3 -->
-<div class="screen hidden centerScreen" id="screen3">
+<div class="screen centerScreen" id="screen3">
   <h1>I promise you’ll like it 💖</h1>
 </div>
 
 <!-- GIFTS -->
-<div class="screen hidden centerScreen" id="screen6">
+<div class="screen centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
   <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
   <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
@@ -115,7 +116,7 @@ button{
 </div>
 
 <!-- LETTER -->
-<div class="screen hidden" id="letter">
+<div class="screen" id="letter">
   <h1>💌 A Letter</h1>
   <div class="letterBox">
     <p>I love you ❤️</p>
@@ -125,14 +126,14 @@ button{
 </div>
 
 <!-- BOUQUET -->
-<div class="screen hidden centerScreen" id="bouquet">
+<div class="screen centerScreen" id="bouquet">
   <h1>💐 A Bouquet</h1>
   <img src="bouquet.jpg" width="260">
   <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- SURPRISE -->
-<div class="screen hidden centerScreen" id="surprise">
+<div class="screen centerScreen" id="surprise">
   <h1>🎁 A Surprise</h1>
   <img id="surpriseImg" src="surprise.jpg"
        style="filter:blur(10px);width:260px;border-radius:20px">
@@ -143,93 +144,65 @@ button{
 </div>
 
 <!-- FINAL -->
-<div class="screen hidden centerScreen" id="final">
+<div class="screen centerScreen" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
 </div>
 
 <script>
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("valentine-site: script loaded (DOMContentLoaded)");
+console.log("script loaded");
 
-  function show(id){
-    document.querySelectorAll(".screen")
-      .forEach(s => s.classList.add("hidden"));
-    const el = document.getElementById(id);
-    if (!el) {
-      console.warn("show(): element not found:", id);
-      return;
-    }
-    el.classList.remove("hidden");
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.style.display="none";
+  });
+  const el=document.getElementById(id);
+  if(el){
+    el.style.display="flex";
+  }else{
+    console.error("screen not found:",id);
   }
+}
 
-  // Initial screen
-  show("screen1");
+// start
+show("screen1");
 
-  // Allow clicking the first screen to proceed immediately (helpful if timer seems to stall)
-  const screen1 = document.getElementById("screen1");
-  if (screen1) {
-    screen1.addEventListener("click", () => {
-      console.log("screen1 clicked -> advancing to screen2");
-      show("screen2");
-    });
-  } else {
-    console.warn("screen1 element not found");
+// auto advance after 5 seconds
+setTimeout(()=>{
+  console.log("advancing to screen2");
+  show("screen2");
+},5000);
+
+// YES button
+document.getElementById("yesBtn").onclick=()=>{
+  show("screen3");
+  setTimeout(()=>show("screen6"),2000);
+};
+
+// NO button move
+const noBtn=document.getElementById("noBtn");
+const box=document.getElementById("screen2");
+noBtn.onmouseenter=noBtn.onclick=()=>{
+  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
+  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
+};
+
+// gifts
+let opened={letter:false,bouquet:false,surprise:false};
+
+function openGift(id){
+  opened[id]=true;
+  show(id);
+}
+
+function back(){
+  if(opened.letter && opened.bouquet && opened.surprise){
+    show("final");
+  }else{
+    show("screen6");
   }
-
-  // Auto advance after 5 seconds
-  setTimeout(() => {
-    console.log("5s timeout -> advancing to screen2");
-    show("screen2");
-  }, 5000);
-
-  // YES button
-  const yesBtn = document.getElementById("yesBtn");
-  if (yesBtn) {
-    yesBtn.onclick = () => {
-      console.log("yesBtn clicked -> screen3 then gifts");
-      show("screen3");
-      setTimeout(() => show("screen6"), 2000);
-    };
-  } else {
-    console.warn("yesBtn element not found");
-  }
-
-  // NO button movement (guarded)
-  const noBtn = document.getElementById("noBtn");
-  const box = document.getElementById("screen2");
-  if (noBtn && box) {
-    noBtn.onmouseenter = noBtn.onclick = () => {
-      try {
-        noBtn.style.left = Math.random()*(box.clientWidth-120)+"px";
-        noBtn.style.top  = Math.random()*(box.clientHeight-80)+"px";
-      } catch (e) {
-        console.error("error moving noBtn:", e);
-      }
-    };
-  } else {
-    if (!noBtn) console.warn("noBtn not found");
-    if (!box) console.warn("screen2 (box) not found");
-  }
-
-  // Gift flow
-  window.opened = {letter:false,bouquet:false,surprise:false};
-
-  window.openGift = function(id){
-    opened[id] = true;
-    show(id);
-  };
-
-  window.back = function(){
-    if(opened.letter && opened.bouquet && opened.surprise){
-      show("final");
-    } else {
-      show("screen6");
-    }
-  };
-
-});
+}
 </script>
 
 </body>
