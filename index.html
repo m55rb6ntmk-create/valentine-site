@@ -44,7 +44,7 @@ button{
   cursor:pointer;
 }
 
-#yesBtn{
+.primary{
   background:#ff4d6d;
   color:#fff;
 }
@@ -63,28 +63,29 @@ button{
 }
 
 .returnBtn{
-  margin-top:20px;
+  margin:20px auto;
   background:#ffd6e0;
   color:#ff4d6d;
 }
 
-/* LETTER SCROLL FIX */
+/* LETTER FIX */
 .scrollable{
   height:100vh;
   overflow-y:auto;
-  padding-bottom:40px;
   -webkit-overflow-scrolling:touch;
 }
 
 .letterBox{
+  width:90%;
   max-width:600px;
+  margin:20px auto;
   background:#fff;
   padding:20px;
   border-radius:20px;
   text-align:left;
   color:#b9375e;
-  margin:20px auto;
   line-height:1.6;
+  word-wrap:break-word;
 }
 </style>
 </head>
@@ -97,14 +98,20 @@ button{
     Hey there, I have to ask you something.<br>
     Please be honest 🤍
   </h1>
+
   <img src="https://media.giphy.com/media/uUnPYB37kLHvFnH4bi/giphy.gif"
        style="width:200px;margin-top:20px;border-radius:14px">
+
+  <button class="primary" style="margin-top:30px;" onclick="show('screen2')">
+    Next ❤️
+  </button>
 </div>
 
 <!-- SCREEN 2 -->
 <div class="screen centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
-  <button id="yesBtn" style="margin-top:20px;">Yes</button>
+
+  <button class="primary" style="margin-top:20px;" onclick="goYes()">Yes</button>
 
   <img src="https://media.giphy.com/media/3oxHQfvDzo7VhSRy8M/giphy.gif"
        style="width:180px;margin-top:15px;border-radius:12px">
@@ -112,21 +119,29 @@ button{
   <button id="noBtn" style="left:60%;top:60%;">No</button>
 </div>
 
-<!-- SCREEN 3 -->
-<div class="screen centerScreen" id="screen3">
-  <h1>I promise you’ll like it 💖</h1>
+<!-- NEW THANK YOU SCREEN -->
+<div class="screen centerScreen" id="screenThanks">
+  <h1>Thankkkk youuu sooo much 💖</h1>
+
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTl3cGRnYmpnMHd4dThiYWg0YWNucmNrcnhzeThxNjcyOW5iZmZ2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/T70hpBP1L0N7U0jtkq/giphy.gif"
+       style="width:200px;margin:20px 0;border-radius:14px">
+
+  <p style="color:#b9375e;font-size:18px;">
+    I have somethings for you 💝
+  </p>
 </div>
 
 <!-- GIFTS -->
 <div class="screen centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
+
   <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
   <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
   <button class="giftOption" onclick="openGift('surprise')">🎁 A Surprise</button>
 </div>
 
 <!-- LETTER -->
-<div class="screen scrollable" id="letter">
+<div class="screen scrollable centerScreen" id="letter">
   <h1>💌 A Letter</h1>
 
   <div class="letterBox">
@@ -163,11 +178,15 @@ button{
 <!-- SURPRISE -->
 <div class="screen centerScreen" id="surprise">
   <h1>🎁 A Surprise</h1>
+
   <img id="surpriseImg" src="surprise.jpg"
        style="filter:blur(10px);width:260px;border-radius:20px">
-  <button onclick="document.getElementById('surpriseImg').style.filter='none'">
+
+  <button class="primary" style="margin-top:15px;"
+    onclick="document.getElementById('surpriseImg').style.filter='none'">
     Reveal 💖
   </button>
+
   <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
@@ -179,31 +198,20 @@ button{
 </div>
 
 <script>
-console.log("script loaded");
-
 function show(id){
   document.querySelectorAll(".screen").forEach(s=>{
     s.style.display="none";
   });
-  const el=document.getElementById(id);
-  if(el){
-    el.style.display="flex";
-  }
+  document.getElementById(id).style.display="flex";
 }
 
-// start
 show("screen1");
 
-// auto advance after 5 seconds
-setTimeout(()=>show("screen2"),5000);
+function goYes(){
+  show("screenThanks");
+  setTimeout(()=>show("screen6"),3000);
+}
 
-// YES button
-document.getElementById("yesBtn").onclick=()=>{
-  show("screen3");
-  setTimeout(()=>show("screen6"),2000);
-};
-
-// NO button move
 const noBtn=document.getElementById("noBtn");
 const box=document.getElementById("screen2");
 noBtn.onmouseenter=noBtn.onclick=()=>{
@@ -211,7 +219,6 @@ noBtn.onmouseenter=noBtn.onclick=()=>{
   noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
 };
 
-// gifts
 let opened={letter:false,bouquet:false,surprise:false};
 
 function openGift(id){
