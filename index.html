@@ -21,10 +21,10 @@ body{
 
 /* SCREENS */
 .screen{
+  display:none;
   text-align:center;
   padding:20px;
 }
-.hidden{display:none}
 
 .centerScreen{
   height:100vh;
@@ -68,7 +68,7 @@ button{
   color:#ff4d6d;
 }
 
-/* LETTER FIX */
+/* LETTER SCROLL FIX */
 .scrollable{
   height:100vh;
   overflow-y:auto;
@@ -84,6 +84,7 @@ button{
   text-align:left;
   color:#b9375e;
   margin:20px auto;
+  line-height:1.6;
 }
 </style>
 </head>
@@ -101,7 +102,7 @@ button{
 </div>
 
 <!-- SCREEN 2 -->
-<div class="screen hidden centerScreen" id="screen2" style="position:relative;">
+<div class="screen centerScreen" id="screen2" style="position:relative;">
   <h1>Will you be my Valentine?</h1>
   <button id="yesBtn" style="margin-top:20px;">Yes</button>
 
@@ -112,43 +113,55 @@ button{
 </div>
 
 <!-- SCREEN 3 -->
-<div class="screen hidden centerScreen" id="screen3">
+<div class="screen centerScreen" id="screen3">
   <h1>I promise you’ll like it 💖</h1>
 </div>
 
 <!-- GIFTS -->
-<div class="screen hidden centerScreen" id="screen6">
+<div class="screen centerScreen" id="screen6">
   <h1>Gifts for my princess 👑</h1>
   <button class="giftOption" onclick="openGift('letter')">💌 A Letter</button>
   <button class="giftOption" onclick="openGift('bouquet')">💐 A Bouquet</button>
   <button class="giftOption" onclick="openGift('surprise')">🎁 A Surprise</button>
 </div>
 
-<!-- LETTER (SCROLLABLE) -->
-<div class="screen hidden scrollable" id="letter">
+<!-- LETTER -->
+<div class="screen scrollable" id="letter">
   <h1>💌 A Letter</h1>
+
   <div class="letterBox">
-    <p>From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.</p>
+    <p>
+      From the day we first met till today my love has just grew by the time and it is crazy how the time went by so fast that we didn’t even know that its been a year of us doing long distance but the love and care you provide still feels like you are here with me. Whenever we talk it feels like you are right next to me sharing your day.
+    </p>
 
-    <p>You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.</p>
+    <p>
+      You have been there through different phases of my life, ups and downs and still you always stayed by my side and helped me push through that and made me stronger. I really appreciate your love and support that you provide me even though sitting thousands of miles away.
+    </p>
 
-    <p>Distance never made me doubt us. If anything it showed me how sure im about choosing you. The small moments we share on call, the laughs we have together the gossips and the cries i remember it all and i love all those moments and I want to create more moments like these in future too.</p>
+    <p>
+      Distance never made me doubt us. If anything it showed me how sure im about choosing you. The small moments we share on call, the laughs we have together the gossips and the cries i remember it all and i love all those moments and I want to create more moments like these in future too.
+    </p>
 
     <p><strong>I love you ❤️</strong></p>
-    <p>Always Choosing You,<br><strong>Raj</strong></p>
+
+    <p>
+      Always Choosing You,<br>
+      <strong>Raj</strong>
+    </p>
   </div>
+
   <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- BOUQUET -->
-<div class="screen hidden centerScreen" id="bouquet">
+<div class="screen centerScreen" id="bouquet">
   <h1>💐 A Bouquet</h1>
   <img src="bouquet.jpg" width="260">
   <button class="returnBtn" onclick="back()">← Return</button>
 </div>
 
 <!-- SURPRISE -->
-<div class="screen hidden centerScreen" id="surprise">
+<div class="screen centerScreen" id="surprise">
   <h1>🎁 A Surprise</h1>
   <img id="surpriseImg" src="surprise.jpg"
        style="filter:blur(10px);width:260px;border-radius:20px">
@@ -159,54 +172,60 @@ button{
 </div>
 
 <!-- FINAL -->
-<div class="screen hidden centerScreen" id="final">
+<div class="screen centerScreen" id="final">
   <h1>YAYYYY 💖</h1>
   <h2>Happy Valentine’s ❤️</h2>
   <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="220">
 </div>
 
 <script>
-window.addEventListener("DOMContentLoaded", () => {
+console.log("script loaded");
 
-  function show(id){
-    document.querySelectorAll(".screen")
-      .forEach(s => s.classList.add("hidden"));
-    document.getElementById(id).classList.remove("hidden");
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.style.display="none";
+  });
+  const el=document.getElementById(id);
+  if(el){
+    el.style.display="flex";
   }
+}
 
-  show("screen1");
+// start
+show("screen1");
 
-  // Auto advance after 5 seconds
-  setTimeout(() => show("screen2"), 5000);
+// auto advance after 5 seconds
+setTimeout(()=>show("screen2"),5000);
 
-  document.getElementById("yesBtn").onclick = () => {
-    show("screen3");
-    setTimeout(() => show("screen6"), 2000);
-  };
+// YES button
+document.getElementById("yesBtn").onclick=()=>{
+  show("screen3");
+  setTimeout(()=>show("screen6"),2000);
+};
 
-  const noBtn = document.getElementById("noBtn");
-  const box = document.getElementById("screen2");
-  noBtn.onmouseenter = noBtn.onclick = () => {
-    noBtn.style.left = Math.random()*(box.clientWidth-120)+"px";
-    noBtn.style.top  = Math.random()*(box.clientHeight-80)+"px";
-  };
+// NO button move
+const noBtn=document.getElementById("noBtn");
+const box=document.getElementById("screen2");
+noBtn.onmouseenter=noBtn.onclick=()=>{
+  noBtn.style.left=Math.random()*(box.clientWidth-120)+"px";
+  noBtn.style.top=Math.random()*(box.clientHeight-80)+"px";
+};
 
-  window.opened = {letter:false,bouquet:false,surprise:false};
+// gifts
+let opened={letter:false,bouquet:false,surprise:false};
 
-  window.openGift = function(id){
-    opened[id] = true;
-    show(id);
-  };
+function openGift(id){
+  opened[id]=true;
+  show(id);
+}
 
-  window.back = function(){
-    if(opened.letter && opened.bouquet && opened.surprise){
-      show("final");
-    } else {
-      show("screen6");
-    }
-  };
-
-});
+function back(){
+  if(opened.letter && opened.bouquet && opened.surprise){
+    show("final");
+  }else{
+    show("screen6");
+  }
+}
 </script>
 
 </body>
